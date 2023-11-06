@@ -43,19 +43,19 @@ export const WeatherTable = () => {
   const startIndex = weather.hourly.time.findIndex(
     (time: string) => time > dayHour
   );
-  const filteredWeather = weather.hourly.time.slice(startIndex - 1);
+  const filteredTime = weather.hourly.time.slice(startIndex - 1);
 
   return (
     <>
       <Box maxW="1000px" height="230px" overflowX="auto">
         <Flex>
-          {filteredWeather.map((time: string, index: number) => (
+          {filteredTime.map((time: string, index: number) => (
             <WeatherBox
-              key={index}
+              key={startIndex+index-1}
               time={time}
-              condition={weather.hourly.cloud_cover[index]}
-              temperature={weather.hourly.temperature_2m[index]}
-              weathercode={weather.hourly.weather_code[index]}
+              condition={weather.hourly.cloud_cover[startIndex+index-1]}
+              temperature={weather.hourly.temperature_2m[startIndex+index-1]}
+              weathercode={weather.hourly.weather_code[startIndex+index-1]}
             />
           ))}
         </Flex>
