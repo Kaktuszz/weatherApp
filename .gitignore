@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Api
-apiCalls.ts
+# apiCalls.ts
