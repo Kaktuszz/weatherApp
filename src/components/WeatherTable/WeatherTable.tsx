@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Center, Flex, Spinner } from "@chakra-ui/react";
 import { fullDate } from "../../helpers";
 import { WeatherBox } from "../UI/WeatherBox/WeatherBox";
 import { useEffect, useState } from "react";
@@ -24,9 +24,9 @@ export const WeatherTable = () => {
 
   if (loading) {
     return (
-      <div>
-        <button onClick={() => console.log(weather)}>Loading...</button>
-      </div>
+      <Center>
+        <Spinner size="xl" />
+      </Center>
     );
   }
 
