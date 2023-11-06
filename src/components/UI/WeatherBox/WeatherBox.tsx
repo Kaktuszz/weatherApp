@@ -13,7 +13,7 @@ export const WeatherBox = (props: any) => {
           <CardBody >
             <Text align="center">{timeOnly}</Text>
             <Text align="center">{conditions(props.weathercode)}</Text>
-            <Text align="center">{props.temperature}</Text>
+            <Text align="center">{props.temperature}°C</Text>
             <Text align="center">{dayRn(dayOnly)}</Text>
             <Text align="center" >{dateOnly}</Text>
             <Text align="center">{monthRn(dayOnly)}</Text>
