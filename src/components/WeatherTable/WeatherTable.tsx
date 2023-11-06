@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { hourRn } from "../../helpers";
+import { fullDate } from "../../helpers";
 import { WeatherBox } from "../UI/WeatherBox/WeatherBox";
 import { useEffect, useState } from "react";
 import { weatherCall } from "../../apiCalls";
@@ -8,33 +8,48 @@ export const WeatherTable = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [weather, setWeather] = useState<any>([]);
   const fetchData = weatherCall(null, null);
+  const dayHour = fullDate();
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchData()
-    .then(data =>{
-      setWeather(data)
-      setLoading(false)
-    }).
-    catch(error =>{
-      console.log(error)
-      setLoading(false)
-    });
-  },[])
-  
+      .then((data) => {
+        setWeather(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, []);
 
-  if(loading){
-    return <div><button onClick={()=>console.log(weather)}>Loading...</button></div>
+  if (loading) {
+    return (
+      <div>
+        <button onClick={() => console.log(weather)}>Loading...</button>
+      </div>
+    );
   }
 
-  if (!weather || !weather.hourly) {
-    return <div><button onClick={()=>console.log(weather)}>Error loading weather data</button></div>;
+  if (!weather) {
+    return (
+      <div>
+        <button onClick={() => console.log(weather)}>
+          Error loading weather data
+        </button>
+      </div>
+    );
   }
-  
+
+  const startIndex = weather.hourly.time.findIndex(
+    (time: string) => time > dayHour
+  );
+  const filteredWeather = weather.hourly.time.slice(startIndex - 1);
+
   return (
     <>
-      <Box maxW="800px" height="230px" overflowX="auto">
+      <Box maxW="1000px" height="230px" overflowX="auto">
         <Flex>
-          {weather.hourly.time.map((time: string, index: number) => (
+          {filteredWeather.map((time: string, index: number) => (
             <WeatherBox
               key={index}
               time={time}

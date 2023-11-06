@@ -58,7 +58,7 @@ export const conditions = (condition: any) => {
   }
 };
 
-export const hourRn = () => {
+export const fullDate = () => {
   const date = new Date();
 
   const year = date.getFullYear();
