@@ -1,0 +1,31 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #b5c4c7;
+}
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 10px;
+  margin: 0px;
+}
+
+
+
+/* Define the style for the scrollbar track */
+::-webkit-scrollbar-track {
+  background: rgba(214, 213, 213, 0.548); /* Set the background color of the scrollbar track */
+}
+
+/* Define the style for the scrollbar handle or thumb */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Set the color of the scrollbar handle */
+}
+
+/* Define the style for the scrollbar handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Set the color of the scrollbar handle on hover */
+}
