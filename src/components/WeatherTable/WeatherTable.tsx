@@ -9,6 +9,9 @@ export const WeatherTable = () => {
   const [weather, setWeather] = useState<any>([]);
   const dayHour = fullDate();
 
+
+  const localData = geolocation();
+
   useEffect(() => {
     const dataFetcher = async () => {
       try {

@@ -145,8 +145,8 @@ export const setCookie = (name: any, value: any, daysToExpire: any) => {
   document.cookie = cookieValue;
 };
 
-export const geolocation = (): Promise<{ latitude: number; longitude: number }> => {
-  return new Promise((resolve, reject) => {
+export const geolocation = (): Promise<{ latitude: number | null; longitude: number | null }> => {
+  return new Promise((resolve) => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -157,25 +157,15 @@ export const geolocation = (): Promise<{ latitude: number; longitude: number }> 
           resolve(latLon);
         },
         (error) => {
-          // Error callback function
-          if (error.PERMISSION_DENIED) {
-            console.log("User denied the request for Geolocation.");
-            reject(new Error("User denied geolocation request."));
-          } else if (error.POSITION_UNAVAILABLE) {
-            console.log("Location information is unavailable.");
-            reject(new Error("Location information is unavailable."));
-          } else if (error.TIMEOUT) {
-            console.log("The request to get user location timed out.");
-            reject(new Error("Geolocation request timed out."));
-          } else {
-            console.log("An unknown error occurred.");
-            reject(new Error("Unknown geolocation error."));
-          }
+          console.error("Error getting geolocation:", error);
+          const defaultLocation = { latitude: null, longitude: null };
+          resolve(defaultLocation);
         }
       );
     } else {
-      reject(new Error("Geolocation is not supported."));
+      console.error("Geolocation is not supported.");
+      const defaultLocation = { latitude: null, longitude: null };
+      resolve(defaultLocation);
     }
   });
 };
-
