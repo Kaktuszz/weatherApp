@@ -131,3 +131,85 @@ export const monthRn = (month: any) => {
   const monthOfYear = date.getMonth();
   return months[monthOfYear];
 };
+
+export const setCookie = (name: any, value: any, daysToExpire: any) => {
+  var expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + daysToExpire);
+  var cookieValue =
+    encodeURIComponent(name) +
+    "=" +
+    encodeURIComponent(value) +
+    "; expires=" +
+    expirationDate.toUTCString() +
+    "; path=/";
+  document.cookie = cookieValue;
+};
+
+// export const geolocation = () => {
+
+  // if ("geolocation" in navigator) {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       const latitude = position.coords.latitude;
+  //       const longitude = position.coords.longitude;
+  //       const latLon = {latitude, longitude};
+  //       console.log(latLon)
+  //       localStorage.setItem("geolocation", JSON.stringify(latLon));
+  //       return latLon;
+  //     },
+  //     (error) => {
+  //       // Error callback function
+  //       if(error.PERMISSION_DENIED){
+  //         console.log("User denied the request for Geolocation.");
+  //         return null;
+  //       }else if(error.POSITION_UNAVAILABLE){
+  //         console.log("Location information is unavailable.");
+  //         return null;
+  //       }else if(error.TIMEOUT){
+  //         console.log("The request to get user location timed out.");
+  //         return null;
+  //       }else{
+  //         console.log("An unknown error occurred.");
+  //         return null;
+  //       }
+  //     }
+  //   );
+  // }else{
+  //   return null;
+  // }
+// };
+
+export const geolocation = (): Promise<{ latitude: number; longitude: number }> => {
+  return new Promise((resolve, reject) => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const latLon = { latitude, longitude };
+          localStorage.setItem("geolocation", JSON.stringify(latLon));
+          resolve(latLon);
+        },
+        (error) => {
+          // Error callback function
+          if (error.PERMISSION_DENIED) {
+            console.log("User denied the request for Geolocation.");
+            reject(new Error("User denied geolocation request."));
+          } else if (error.POSITION_UNAVAILABLE) {
+            console.log("Location information is unavailable.");
+            reject(new Error("Location information is unavailable."));
+          } else if (error.TIMEOUT) {
+            console.log("The request to get user location timed out.");
+            reject(new Error("Geolocation request timed out."));
+          } else {
+            console.log("An unknown error occurred.");
+            reject(new Error("Unknown geolocation error."));
+          }
+        }
+      );
+    } else {
+      reject(new Error("Geolocation is not supported."));
+    }
+  });
+};
+

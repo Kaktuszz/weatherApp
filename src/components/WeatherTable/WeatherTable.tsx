@@ -1,5 +1,5 @@
 import { Box, Center, Flex, Spinner } from "@chakra-ui/react";
-import { fullDate } from "../../helpers";
+import { fullDate, geolocation } from "../../helpers";
 import { WeatherBox } from "../UI/WeatherBox/WeatherBox";
 import { useEffect, useState } from "react";
 import { weatherCall } from "../../apiCalls";
@@ -7,19 +7,27 @@ import { weatherCall } from "../../apiCalls";
 export const WeatherTable = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [weather, setWeather] = useState<any>([]);
-  const fetchData = weatherCall(null, null);
   const dayHour = fullDate();
 
+  //// загружати функцію з вставлянням локації першим
   useEffect(() => {
-    fetchData()
-      .then((data) => {
-        setWeather(data);
-        setLoading(false);
-      })
-      .catch((error) => {
+    const dataFetcher = async () => {
+      try {
+        const localData = await geolocation();
+        if (localData) {
+          const fetchData = await weatherCall(
+            localData.latitude,
+            localData.longitude
+          );
+          const data = await fetchData();
+          setWeather(data);
+        }
+      } catch (error) {
         console.log(error);
-        setLoading(false);
-      });
+      }
+      setLoading(false);
+    };
+    dataFetcher();
   }, []);
 
   if (loading) {
@@ -51,11 +59,13 @@ export const WeatherTable = () => {
         <Flex>
           {filteredTime.map((time: string, index: number) => (
             <WeatherBox
-              key={startIndex+index-1}
+              key={startIndex + index - 2}
               time={time}
-              condition={weather.hourly.cloud_cover[startIndex+index-1]}
-              temperature={weather.hourly.temperature_2m[startIndex+index-1]}
-              weathercode={weather.hourly.weather_code[startIndex+index-1]}
+              condition={weather.hourly.cloud_cover[startIndex + index - 2]}
+              temperature={
+                weather.hourly.temperature_2m[startIndex + index - 2]
+              }
+              weathercode={weather.hourly.weather_code[startIndex + index - 2]}
             />
           ))}
         </Flex>
