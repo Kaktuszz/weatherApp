@@ -15,6 +15,8 @@ export const WeatherBox = (props: any) => {
   const timeOnly = String(props.time).substring(11, 16);
   const dayOnly = String(props.time).substring(0, 10);
   const dateOnly = String(props.time).substring(8, 10);
+  const month = monthRn(String(props.day).substring(5, 7));
+  const day = String(props.day).substring(8, 10);
 
   return (
     <>
@@ -46,8 +48,7 @@ export const WeatherBox = (props: any) => {
                   <Text align="center">{conditions(props.weathercode)}</Text>
                   <Heading size="lg">
                     {" "}
-                    {monthRn(String(props.day).substring(5, 7))}{" "}
-                    {String(props.day).substring(8, 10)}
+                    {month} {day}
                   </Heading>
                 </>
               ) : (
