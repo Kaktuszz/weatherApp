@@ -3,7 +3,7 @@ export const geoCall =()=>{
 }
 
 export const weatherCall =(lat: number | null, lon: number | null)=>{
-    const defaultLatLon = "latitude=53.04&longitude=21.94"
+    const defaultLatLon = "latitude=52.237049&longitude=21.017532"
     // const localGeoloc = localStorage.getItem("geolocation");
     let api = ""
     // if(localGeoloc !== null){
