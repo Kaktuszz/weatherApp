@@ -47,7 +47,7 @@ export const WeatherBox = (props: any) => {
                 <>
                   <Text align="center">{conditions(props.weathercode)}</Text>
                   <Heading size="lg">
-                    {month} {day}
+                    {monthRn(month)} {day}
                   </Heading>
                 </>
               ) : (
