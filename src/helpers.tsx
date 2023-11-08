@@ -145,40 +145,6 @@ export const setCookie = (name: any, value: any, daysToExpire: any) => {
   document.cookie = cookieValue;
 };
 
-// export const geolocation = () => {
-
-  // if ("geolocation" in navigator) {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       const latitude = position.coords.latitude;
-  //       const longitude = position.coords.longitude;
-  //       const latLon = {latitude, longitude};
-  //       console.log(latLon)
-  //       localStorage.setItem("geolocation", JSON.stringify(latLon));
-  //       return latLon;
-  //     },
-  //     (error) => {
-  //       // Error callback function
-  //       if(error.PERMISSION_DENIED){
-  //         console.log("User denied the request for Geolocation.");
-  //         return null;
-  //       }else if(error.POSITION_UNAVAILABLE){
-  //         console.log("Location information is unavailable.");
-  //         return null;
-  //       }else if(error.TIMEOUT){
-  //         console.log("The request to get user location timed out.");
-  //         return null;
-  //       }else{
-  //         console.log("An unknown error occurred.");
-  //         return null;
-  //       }
-  //     }
-  //   );
-  // }else{
-  //   return null;
-  // }
-// };
-
 export const geolocation = (): Promise<{ latitude: number; longitude: number }> => {
   return new Promise((resolve, reject) => {
     if ("geolocation" in navigator) {

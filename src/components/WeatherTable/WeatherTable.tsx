@@ -9,7 +9,6 @@ export const WeatherTable = () => {
   const [weather, setWeather] = useState<any>([]);
   const dayHour = fullDate();
 
-  //// загружати функцію з вставлянням локації першим
   useEffect(() => {
     const dataFetcher = async () => {
       try {
