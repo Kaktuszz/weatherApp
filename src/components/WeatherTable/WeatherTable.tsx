@@ -1,34 +1,12 @@
 import { Box, Center, Flex, Spinner } from "@chakra-ui/react";
-import { fullDate, geolocation } from "../../helpers";
+import { fullDate } from "../../helpers";
 import { WeatherBox } from "../UI/WeatherBox/WeatherBox";
-import { useEffect, useState } from "react";
-import { weatherCall } from "../../apiCalls";
+import { useState } from "react";
 
-export const WeatherTable = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [weather, setWeather] = useState<any>([]);
+export const WeatherTable = ({weather, loading}: any) => {
+
   const [day, setDay] = useState(0);
   const dayHour = fullDate();
-
-  useEffect(() => {
-    const dataFetcher = async () => {
-      try {
-        const localData = await geolocation();
-        if (localData) {
-          const fetchData = await weatherCall(
-            localData.latitude,
-            localData.longitude
-          );
-          const data = await fetchData();
-          setWeather(data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      setLoading(false);
-    };
-    dataFetcher();
-  }, []);
 
   const addDayHandler = () => {
     setDay((prevDay) => (prevDay >= 0 && prevDay <= 5 ? prevDay + 1 : prevDay));
