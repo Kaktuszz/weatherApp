@@ -1,16 +1,27 @@
 import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { SearchIcon } from "@chakra-ui/icons";
-import { reverseGeoCall } from "../../apiCalls";
+import { geoCall, reverseGeoCall } from "../../apiCalls";
 import { geolocation } from "../../helpers";
 
 interface City {
   name: string;
 }
 
-export const SearchBar = () => {
+export const SearchBar = ({setLatLon}: any) => {
   const [city, setCity] = useState("");
   const [geoCity, setGeocity] = useState<City[]>([]);
+
+ const cityFetcher = async (e: any) =>{
+  if(e.key === 'Enter'){
+    try{
+      const geoCity = await geoCall(city);
+      setLatLon(await geoCity());
+    }catch (error){
+      console.log(error);
+    }
+  }
+ }
 
   const setCityHandler = (e: any) => {
     setCity(e.target.value);
@@ -57,6 +68,7 @@ export const SearchBar = () => {
         <Input
           value={city}
           onChange={setCityHandler}
+          onKeyDown={cityFetcher}
           placeholder="City"
           size="lg"
           bgColor="while"
