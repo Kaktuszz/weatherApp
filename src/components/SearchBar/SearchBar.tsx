@@ -8,6 +8,8 @@ interface City {
   name: string;
 }
 
+/////////////// зробити дпопдаун з містами що знайшло за пошуком
+
 export const SearchBar = ({setLatLon}: any) => {
   const [city, setCity] = useState("");
   const [geoCity, setGeocity] = useState<City[]>([]);

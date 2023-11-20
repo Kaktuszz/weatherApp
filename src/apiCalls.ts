@@ -45,7 +45,7 @@ export const reverseGeoCall = (lat: number | null, lon: number | null) => {
 export const weatherCall = (lat: number | null, lon: number | null) => {
   let api = "";
   if (lat === null || lon === null) {
-    api = `https://api.open-meteo.com/v1/forecast?latitude=${default_lat}&longitude=${default_lat}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,wind_speed_10m_max&timezone=auto`;
+    api =  api = `https://api.open-meteo.com/v1/forecast?latitude=${default_lat}&longitude=${default_lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,wind_speed_10m_max&timezone=auto`;
     console.log("Default Location");
   } else {
     api = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,wind_speed_10m_max&timezone=auto`;

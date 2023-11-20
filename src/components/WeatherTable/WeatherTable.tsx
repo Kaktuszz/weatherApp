@@ -1,12 +1,10 @@
 import { Box, Center, Flex, Spinner } from "@chakra-ui/react";
-import { fullDate } from "../../helpers";
 import { WeatherBox } from "../UI/WeatherBox/WeatherBox";
 import { useState } from "react";
 
-export const WeatherTable = ({weather, loading}: any) => {
+export const WeatherTable = ({ weather, loading }: any) => {
 
   const [day, setDay] = useState(0);
-  const dayHour = fullDate();
 
   const addDayHandler = () => {
     setDay((prevDay) => (prevDay >= 0 && prevDay <= 5 ? prevDay + 1 : prevDay));
@@ -35,7 +33,7 @@ export const WeatherTable = ({weather, loading}: any) => {
   }
 
   const startIndex = weather.hourly.time.findIndex(
-    (time: string) => time > dayHour
+    (time: string) => time > weather.current.time
   );
   const filteredTime = weather.hourly.time.slice(startIndex);
 
@@ -54,6 +52,7 @@ export const WeatherTable = ({weather, loading}: any) => {
         sunset={weather.daily.sunset[day]}
         day={weather.daily.time[day]}
       />
+
       <Box maxW="1000px" height="230px" overflowX="auto">
         <Flex>
           <WeatherBox
@@ -65,6 +64,7 @@ export const WeatherTable = ({weather, loading}: any) => {
             h="200px"
             align="center"
           />
+
           {filteredTime.map((time: string, index: number) => (
             <WeatherBox
               key={startIndex + index - 1}
