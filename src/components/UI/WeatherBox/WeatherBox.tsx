@@ -54,7 +54,7 @@ export const WeatherBox = (props: any) => {
                 <Text align="center">{conditions(props.weathercode)}</Text>
               )}
             </HStack>
-            {props.maxT && props.minT ? (
+            {props.maxT || props.minT ? (
               <>
                 <HStack>
                   <Text>Max: {props.maxT}°C</Text>
